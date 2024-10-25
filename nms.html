@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS256 Newsletter Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden; /* Prevent scrolling */
+    }
+    #pdf-viewer {
+      width: 100vw; /* Full width */
+      height: 100vh; /* Full height */
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="pdf-viewer"></iframe>
+
+  <script>
+    // Get query parameter from URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Redirect to 404 page if no metadata is specified
+    function redirectTo404() {
+      window.location.href = '404.html';
+    }
+
+    // Display the file using iframe
+    function displayFile(fileName) {
+      const iframe = document.getElementById("pdf-viewer");
+      iframe.src = `newsletters/${fileName}`;
+    }
+
+    // Check for metadata in the URL
+    const metadata = getQueryParam("metadata");
+    if (metadata) {
+      displayFile(metadata);
+    } else {
+      redirectTo404();
+    }
+  </script>
+</body>
+</html>
